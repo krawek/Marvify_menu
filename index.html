@@ -6,9 +6,7 @@
   <title id="page-title"></title>
   <style>
     body {
-      font-family: 'Helvetica Neue', sans-serif;
       margin: 0;
-      background-color: #f8f8f8;
       color: #333;
     }
 
@@ -22,9 +20,14 @@
       position: relative;
     }
 
-    header img.logo {
+    header a.logo-link {
       position: absolute;
       left: 2rem;
+      height: 50px;
+      display: block;
+    }
+
+    header img.logo {
       height: 50px;
       max-height: 100%;
       object-fit: contain;
@@ -55,6 +58,7 @@
       justify-content: center;
       gap: 2rem;
       margin-top: 1.5rem;
+      width: 100%;
     }
 
     .menu-item {
@@ -63,9 +67,10 @@
       overflow: hidden;
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
       transition: transform 0.2s ease;
-      width: 250px;
       position: relative;
       cursor: pointer;
+      width: 250px;
+      flex-shrink: 0;
     }
 
     .menu-item:hover {
@@ -90,7 +95,6 @@
 
     .menu-info p {
       margin: 0;
-      color: #777;
       font-size: 0.95rem;
     }
 
@@ -151,11 +155,20 @@
     .info-wrapper:hover .allergens {
       opacity: 1;
     }
+
+    @media (max-width: 850px) {
+      .menu-row {
+        max-width: 100% !important;
+        padding: 0 1rem;
+      }
+    }
   </style>
 </head>
 <body>
   <header>
-    <img id="logo" class="logo" alt="Logotyp">
+    <a id="logo-link" class="logo-link">
+      <img id="logo" class="logo" alt="Logotyp">
+    </a>
     <h1 id="main-title"></h1>
   </header>
 
@@ -164,98 +177,288 @@
   <script>
     window.__INITIAL_CONFIG__ = {
       title: "Fusion Bites Meny",
+      tabTitle: "Fusion Bites Meny",
       logo: "logo.png",
+      backgroundColor: "#fffdf8",
+      logoClickURL: "https://www.sushisho.se/",
+      logoClickURLOpenType: "same-window",
+      googleFont: "Poppins",
+      maxItemsPerRow: 4,
+      cardInfoBackgroundColor: "#ffffff",
+      cardTitleColor: "#000000",
+      cardDescriptionColor: "#777777",
       categories: [
-        {
-          name: "Risskålar",
-          items: [
-            {
-              name: "Kyckling Teriyaki Skål",
-              description: "Grillad kyckling med teriyakisås på jasminris",
-              image: "Eae18i0.png",
-              price: "79 kr",
-              allergens: "soja, gluten, sesam",
-              origin: "Svensk kyckling",
-              url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-              open: "tab"
-            },
-            {
-              name: "Vegansk Skål",
-              description: "Tofu, edamame och rostade grönsaker på fullkornsris",
-              image: "Eae18i0.png",
-              price: "65 kr",
-              allergens: "soja",
-              url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-              open: "popup"
-            }
-          ]
-        },
-        {
-          name: "Sushi & Rullar",
-          items: [
-            {
-              name: "Spicy Tonfiskrulle",
-              description: "Kryddig tonfisk med avokado och sesamfrön",
-              image: "Eae18i0.png",
-              price: "82 kr",
-              allergens: "fisk, soja, sesam",
-              origin: "Tonfisk från Stilla havet",
-              url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-              open: "tab"
-            },
-            {
-              name: "Lax & Avokado Rulle",
-              description: "Färsk lax med krämig avokado och ris",
-              image: "Eae18i0.png",
-              price: "80 kr",
-              allergens: "fisk",
-              origin: "Norsk lax",
-              url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-              open: "popup"
-            },
-            {
-              name: "California Rulle",
-              description: "Krabba, avokado och gurka rullat i ris",
-              image: "Eae18i0.png",
-              price: "75 kr",
-              allergens: "skaldjur, gluten",
-              origin: "Krabba från Atlanten",
-              url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-              open: "tab"
-            }
-          ]
-        },
-        {
-          name: "Gyoza & Tillbehör",
-          items: [
-            {
-              name: "Kyckling Gyoza",
-              description: "Stekta kycklingdumplings med dippsås",
-              image: "Eae18i0.png",
-              price: "52 kr",
-              allergens: "soja, gluten",
-              origin: "Svensk kyckling",
-              url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-              open: "popup"
-            },
-            {
-              name: "Miso Soppa",
-              description: "Traditionell misobuljong med tofu och sjögräs",
-              image: "Eae18i0.png",
-              price: "29 kr",
-              allergens: "soja",
-              url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-              open: "tab"
-            }
-          ]
-        }
-      ]
-    };
-
+  {
+    name: "Risskålar",
+    items: [
+      {
+        name: "Kyckling Teriyaki Skål",
+        description: "Grillad kyckling med teriyakisås på jasminris",
+        image: "Eae18i0.png",
+        price: "79 kr",
+        allergens: "soja, gluten, sesam",
+        origin: "Svensk kyckling",
+        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+        open: "tab"
+      },
+      {
+        name: "Vegansk Skål",
+        description: "Tofu, edamame och rostade grönsaker på fullkornsris",
+        image: "Eae18i0.png",
+        price: "65 kr",
+        allergens: "soja",
+        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+        open: "popup"
+      },
+      {
+        name: "Bulgogi Biff Skål",
+        description: "Marinerad biff i koreansk stil med ris och sallad",
+        image: "Eae18i0.png",
+        price: "89 kr",
+        allergens: "soja, sesam",
+        origin: "Svensk biff",
+        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+        open: "tab"
+      },
+      {
+        name: "Tempura Räk Skål",
+        description: "Friterade räkor med chili-majo och sticky rice",
+        image: "Eae18i0.png",
+        price: "85 kr",
+        allergens: "skaldjur, ägg, gluten",
+        origin: "Räkor från Asien",
+        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+        open: "popup"
+      }
+    ]
+  },
+  {
+    name: "Sushi & Rullar",
+    items: [
+      {
+        name: "Spicy Tonfiskrulle",
+        description: "Kryddig tonfisk med avokado och sesamfrön",
+        image: "Eae18i0.png",
+        price: "82 kr",
+        allergens: "fisk, soja, sesam",
+        origin: "Tonfisk från Stilla havet",
+        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+        open: "tab"
+      },
+      {
+        name: "Lax & Avokado Rulle",
+        description: "Färsk lax med krämig avokado och ris",
+        image: "Eae18i0.png",
+        price: "80 kr",
+        allergens: "fisk",
+        origin: "Norsk lax",
+        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+        open: "popup"
+      },
+      {
+        name: "California Rulle",
+        description: "Krabba, avokado och gurka rullat i ris",
+        image: "Eae18i0.png",
+        price: "75 kr",
+        allergens: "skaldjur, gluten",
+        origin: "Krabba från Atlanten",
+        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+        open: "tab"
+      },
+      {
+        name: "Dragon Roll",
+        description: "Friterad räka, avokado och spicy majo",
+        image: "Eae18i0.png",
+        price: "88 kr",
+        allergens: "skaldjur, gluten, ägg",
+        origin: "Räkor från Thailand",
+        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+        open: "popup"
+      },
+      {
+        name: "Sashimi Mix",
+        description: "Lax, tonfisk och hälleflundra – ren rå smak",
+        image: "Eae18i0.png",
+        price: "99 kr",
+        allergens: "fisk",
+        origin: "Nordatlantisk fisk",
+        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+        open: "tab"
+      },
+      {
+        name: "Avokado Maki",
+        description: "Enkel och fräsch rulle med krämig avokado",
+        image: "Eae18i0.png",
+        price: "59 kr",
+        allergens: "",
+        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+        open: "popup"
+      }
+    ]
+  },
+  {
+    name: "Gyoza & Tillbehör",
+    items: [
+      {
+        name: "Kyckling Gyoza",
+        description: "Stekta kycklingdumplings med dippsås",
+        image: "Eae18i0.png",
+        price: "52 kr",
+        allergens: "soja, gluten",
+        origin: "Svensk kyckling",
+        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+        open: "popup"
+      },
+      {
+        name: "Miso Soppa",
+        description: "Traditionell misobuljong med tofu och sjögräs",
+        image: "Eae18i0.png",
+        price: "29 kr",
+        allergens: "soja",
+        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+        open: "tab"
+      },
+      {
+        name: "Edamame",
+        description: "Saltade sojabönor – perfekt som snacks",
+        image: "Eae18i0.png",
+        price: "35 kr",
+        allergens: "soja",
+        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+        open: "popup"
+      },
+      {
+        name: "Kimchi",
+        description: "Koreansk kryddig fermenterad kål",
+        image: "Eae18i0.png",
+        price: "32 kr",
+        allergens: "",
+        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+        open: "tab"
+      },
+      {
+        name: "Wakame Sallad",
+        description: "Sjögrässallad med sesamolja",
+        image: "Eae18i0.png",
+        price: "34 kr",
+        allergens: "sesam",
+        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+        open: "popup"
+      }
+    ]
+  },
+  {
+    name: "Drycker",
+    items: [
+      {
+        name: "Japansk Läsk",
+        description: "Ramune – klassisk japansk kolsyrad läsk",
+        image: "Eae18i0.png",
+        price: "29 kr",
+        allergens: "",
+        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+        open: "tab"
+      },
+      {
+        name: "Grönt Te",
+        description: "Iskallt matcha-te utan socker",
+        image: "Eae18i0.png",
+        price: "25 kr",
+        allergens: "",
+        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+        open: "popup"
+      },
+      {
+        name: "Bubbelte",
+        description: "Söt dryck med tapiokapärlor",
+        image: "Eae18i0.png",
+        price: "45 kr",
+        allergens: "",
+        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+        open: "tab"
+      }
+    ]
+  },
+  {
+    name: "Dessert",
+    items: [
+      {
+        name: "Mochi Glass",
+        description: "Japanska riskakor fyllda med glass",
+        image: "Eae18i0.png",
+        price: "38 kr",
+        allergens: "mjölk",
+        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+        open: "popup"
+      },
+      {
+        name: "Matcha Cheesecake",
+        description: "Klassisk cheesecake med japansk touch",
+        image: "Eae18i0.png",
+        price: "49 kr",
+        allergens: "mjölk, ägg, gluten",
+        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+        open: "tab"
+      },
+      {
+        name: "Yuzu Sorbet",
+        description: "Syrlig sorbet med japansk citrus",
+        image: "Eae18i0.png",
+        price: "42 kr",
+        allergens: "",
+        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+        open: "popup"
+      }
+    ]
+  }
+]
+};
+</script>
+  <script>
     const config = window.__INITIAL_CONFIG__;
-    document.title = config.title;
+    document.title = config.tabTitle || config.title;
     document.getElementById('main-title').textContent = config.title;
     document.getElementById('logo').src = config.logo;
+
+    // Parse and handle logo click
+    const logoLink = document.getElementById('logo-link');
+    if (config.logoClickURL) {
+      const logoOpen = config.logoClickURLOpenType || "tab";
+      logoLink.style.cursor = 'pointer';
+      logoLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (logoOpen.startsWith("popup")) {
+          let width = 600, height = 600;
+          const match = logoOpen.match(/popup\s*(\d+)x(\d+)/i);
+          if (match) {
+            width = parseInt(match[1], 10);
+            height = parseInt(match[2], 10);
+          }
+          window.open(config.logoClickURL, "logoPopup", `width=${width},height=${height}`);
+        } else if (logoOpen === "same-window") {
+          window.location.href = config.logoClickURL;
+        } else {
+          window.open(config.logoClickURL, "_blank");
+        }
+      });
+    } else {
+      logoLink.replaceWith(document.getElementById('logo'));
+    }
+
+    // Styling
+    if (config.backgroundColor) {
+      document.body.style.backgroundColor = config.backgroundColor;
+    }
+
+    if (config.googleFont) {
+      const link = document.createElement('link');
+      link.href = `https://fonts.googleapis.com/css2?family=${config.googleFont.replace(/ /g, '+')}&display=swap`;
+      link.rel = 'stylesheet';
+      document.head.appendChild(link);
+      document.body.style.fontFamily = `'${config.googleFont}', sans-serif`;
+    } else {
+      document.body.style.fontFamily = `'Helvetica Neue', sans-serif`;
+    }
 
     const root = document.getElementById('menu-root');
 
@@ -270,12 +473,31 @@
       const row = document.createElement('div');
       row.className = 'menu-row';
 
+      const itemsPerRow = config.maxItemsPerRow || 3;
+      const itemWidth = 250;
+      const gap = 32;
+      const totalWidth = (itemWidth * itemsPerRow) + (gap * (itemsPerRow - 1));
+      row.style.maxWidth = `${totalWidth}px`;
+      row.style.margin = '1.5rem auto 0 auto';
+
       category.items.forEach(item => {
         const card = document.createElement('div');
         card.className = 'menu-item';
+
         card.addEventListener('click', () => {
-          if (item.open === 'popup') {
-            window.open(item.url, 'popup', 'width=600,height=600');
+          const openType = item.open || 'tab';
+
+          if (openType.startsWith('popup')) {
+            let width = 600;
+            let height = 600;
+            const match = openType.match(/popup\s*(\d+)x(\d+)/i);
+            if (match) {
+              width = parseInt(match[1], 10);
+              height = parseInt(match[2], 10);
+            }
+            window.open(item.url, 'popup', `width=${width},height=${height}`);
+          } else if (openType === 'same-window') {
+            window.location.href = item.url;
           } else {
             window.open(item.url, '_blank');
           }
@@ -288,13 +510,16 @@
 
         const info = document.createElement('div');
         info.className = 'menu-info';
+        info.style.backgroundColor = config.cardInfoBackgroundColor || "#ffffff";
 
         const title = document.createElement('h3');
         title.textContent = item.name;
+        title.style.color = config.cardTitleColor || "#222";
         info.appendChild(title);
 
         const desc = document.createElement('p');
         desc.textContent = item.description;
+        desc.style.color = config.cardDescriptionColor || "#777";
         info.appendChild(desc);
 
         const price = document.createElement('div');
@@ -302,21 +527,31 @@
         price.textContent = 'Pris: ' + item.price;
         info.appendChild(price);
 
-        const wrapper = document.createElement('div');
-        wrapper.className = 'info-wrapper';
+        if (item.allergens || item.origin) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'info-wrapper';
 
-        const button = document.createElement('div');
-        button.className = 'info-button';
-        button.textContent = 'i';
-        wrapper.appendChild(button);
+          const button = document.createElement('div');
+          button.className = 'info-button';
+          button.textContent = 'i';
+          wrapper.appendChild(button);
 
-        const allergens = document.createElement('div');
-        allergens.className = 'allergens';
-        allergens.innerHTML = '<strong>Innehåller:</strong> ' + item.allergens +
-          (item.origin ? '<br><strong>Ursprung:</strong> ' + item.origin : '');
+          const allergens = document.createElement('div');
+          allergens.className = 'allergens';
 
-        wrapper.appendChild(allergens);
-        info.appendChild(wrapper);
+          let html = '';
+          if (item.allergens) {
+            html += `<strong>Innehåller:</strong> ${item.allergens}`;
+          }
+          if (item.origin) {
+            html += `${item.allergens ? '<br>' : ''}<strong>Ursprung:</strong> ${item.origin}`;
+          }
+
+          allergens.innerHTML = html;
+          wrapper.appendChild(allergens);
+          info.appendChild(wrapper);
+        }
+
         card.appendChild(info);
         row.appendChild(card);
       });
