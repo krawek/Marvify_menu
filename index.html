@@ -183,7 +183,7 @@
       logoClickURL: "https://www.sushisho.se/",
       logoClickURLOpenType: "same-window",
       googleFont: "Poppins",
-      maxItemsPerRow: 3,
+      maxItemsPerRow: 2,
       cardInfoBackgroundColor: "#ffffff",
       cardTitleColor: "#000000",
       cardDescriptionColor: "#777777",
@@ -449,7 +449,7 @@
     if (config.backgroundColor) {
       document.body.style.backgroundColor = config.backgroundColor;
     }
-
+    // GOOGLE FONTS
     if (config.googleFont) {
       const link = document.createElement('link');
       link.href = `https://fonts.googleapis.com/css2?family=${config.googleFont.replace(/ /g, '+')}&display=swap`;
