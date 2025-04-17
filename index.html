@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title id="page-title"></title>
   <style>
-    /* [CSS remains unchanged — same styles from working version] */
     body {
       font-family: 'Helvetica Neue', sans-serif;
       margin: 0;
@@ -66,6 +65,7 @@
       transition: transform 0.2s ease;
       width: 250px;
       position: relative;
+      cursor: pointer;
     }
 
     .menu-item:hover {
@@ -175,14 +175,18 @@
               image: "Eae18i0.png",
               price: "79 kr",
               allergens: "soja, gluten, sesam",
-              origin: "Svensk kyckling"
+              origin: "Svensk kyckling",
+              url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+              open: "tab"
             },
             {
               name: "Vegansk Skål",
               description: "Tofu, edamame och rostade grönsaker på fullkornsris",
               image: "Eae18i0.png",
               price: "65 kr",
-              allergens: "soja"
+              allergens: "soja",
+              url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+              open: "popup"
             }
           ]
         },
@@ -195,7 +199,9 @@
               image: "Eae18i0.png",
               price: "82 kr",
               allergens: "fisk, soja, sesam",
-              origin: "Tonfisk från Stilla havet"
+              origin: "Tonfisk från Stilla havet",
+              url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+              open: "tab"
             },
             {
               name: "Lax & Avokado Rulle",
@@ -203,7 +209,9 @@
               image: "Eae18i0.png",
               price: "80 kr",
               allergens: "fisk",
-              origin: "Norsk lax"
+              origin: "Norsk lax",
+              url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+              open: "popup"
             },
             {
               name: "California Rulle",
@@ -211,7 +219,9 @@
               image: "Eae18i0.png",
               price: "75 kr",
               allergens: "skaldjur, gluten",
-              origin: "Krabba från Atlanten"
+              origin: "Krabba från Atlanten",
+              url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+              open: "tab"
             }
           ]
         },
@@ -224,14 +234,18 @@
               image: "Eae18i0.png",
               price: "52 kr",
               allergens: "soja, gluten",
-              origin: "Svensk kyckling"
+              origin: "Svensk kyckling",
+              url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+              open: "popup"
             },
             {
               name: "Miso Soppa",
               description: "Traditionell misobuljong med tofu och sjögräs",
               image: "Eae18i0.png",
               price: "29 kr",
-              allergens: "soja"
+              allergens: "soja",
+              url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
+              open: "tab"
             }
           ]
         }
@@ -259,6 +273,13 @@
       category.items.forEach(item => {
         const card = document.createElement('div');
         card.className = 'menu-item';
+        card.addEventListener('click', () => {
+          if (item.open === 'popup') {
+            window.open(item.url, 'popup', 'width=600,height=600');
+          } else {
+            window.open(item.url, '_blank');
+          }
+        });
 
         const img = document.createElement('img');
         img.src = item.image;
