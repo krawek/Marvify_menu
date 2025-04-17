@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fusion Bites Meny</title>
+  <style>
+    /* [CSS remains unchanged from your latest working version] */
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      margin: 0;
+      background-color: #f8f8f8;
+      color: #333;
+    }
+
+    header {
+      background-color: #ffffff;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    header img.logo {
+      position: absolute;
+      left: 2rem;
+      height: 50px;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .menu-section {
+      padding: 2rem;
+    }
+
+    .menu-section h2 {
+      margin-top: 0;
+      font-size: 2rem;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .menu-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .menu-item {
+      background-color: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease;
+      width: 250px;
+      position: relative;
+    }
+
+    .menu-item:hover {
+      transform: translateY(-4px);
+    }
+
+    .menu-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .menu-info {
+      padding: 1rem;
+      position: relative;
+    }
+
+    .menu-info h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.2rem;
+    }
+
+    .menu-info p {
+      margin: 0;
+      color: #777;
+      font-size: 0.95rem;
+    }
+
+    .price {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #222;
+    }
+
+    .info-wrapper {
+      position: absolute;
+      bottom: 0.5rem;
+      right: 1rem;
+    }
+
+    .info-button {
+      width: 20px;
+      height: 20px;
+      background-color: #eee;
+      color: #555;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      position: relative;
+      z-index: 2;
+    }
+
+    .info-button:hover {
+      background-color: #ccc;
+    }
+
+    .allergens {
+      position: absolute;
+      bottom: 2.5rem;
+      right: 0;
+      background-color: rgba(255, 235, 205, 0.95);
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      color: #5a3e1b;
+      font-weight: 500;
+      width: max-content;
+      max-width: 220px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 1;
+      line-height: 1.4;
+      white-space: normal;
+    }
+
+    .info-wrapper:hover .allergens {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="logo.png" alt="Logotyp" class="logo">
+    <h1>Fusion Bites Meny</h1>
+  </header>
+
+  <section class="menu-section">
+    <h2>Risskålar</h2>
+    <div class="menu-row">
+      <div class="menu-item">
+        <img src="Eae18i0.png" alt="Risskål">
+        <div class="menu-info">
+          <h3>Kyckling Teriyaki Skål</h3>
+          <p>Grillad kyckling med teriyakisås på jasminris</p>
+          <div class="price">Pris: 75kr</div>
+          <div class="info-wrapper">
+            <div class="info-button">i</div>
+            <div class="allergens">
+              <strong>Innehåller:</strong> soja, gluten, sesam<br>
+              <strong>Ursprung:</strong> Svensk kyckling
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="Eae18i0.png" alt="Risskål">
+        <div class="menu-info">
+          <h3>Vegansk Skål</h3>
+          <p>Tofu, edamame och rostade grönsaker på fullkornsris</p>
+          <div class="price">Pris: 75kr</div>
+          <div class="info-wrapper">
+            <div class="info-button">i</div>
+            <div class="allergens">
+              <strong>Innehåller:</strong> soja
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="menu-section">
+    <h2>Sushi & Rullar</h2>
+    <div class="menu-row">
+      <div class="menu-item">
+        <img src="Eae18i0.png" alt="Sushi">
+        <div class="menu-info">
+          <h3>Spicy Tonfiskrulle</h3>
+          <p>Kryddig tonfisk med avokado och sesamfrön</p>
+          <div class="price">Pris: 59kr</div>
+          <div class="info-wrapper">
+            <div class="info-button">i</div>
+            <div class="allergens">
+              <strong>Innehåller:</strong> fisk, soja, sesam<br>
+              <strong>Ursprung:</strong> Tonfisk från Stilla havet
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="Eae18i0.png" alt="Sushi">
+        <div class="menu-info">
+          <h3>Lax & Avokado Rulle</h3>
+          <p>Färsk lax med krämig avokado och ris</p>
+          <div class="price">Pris: 59kr</div>
+          <div class="info-wrapper">
+            <div class="info-button">i</div>
+            <div class="allergens">
+              <strong>Innehåller:</strong> fisk<br>
+              <strong>Ursprung:</strong> Norsk lax
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="Eae18i0.png" alt="Sushi">
+        <div class="menu-info">
+          <h3>California Rulle</h3>
+          <p>Krabba, avokado och gurka rullat i ris</p>
+          <div class="price">Pris: 59kr</div>
+          <div class="info-wrapper">
+            <div class="info-button">i</div>
+            <div class="allergens">
+              <strong>Innehåller:</strong> skaldjur, gluten<br>
+              <strong>Ursprung:</strong> Krabba från Atlanten
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="menu-section">
+    <h2>Gyoza & Tillbehör</h2>
+    <div class="menu-row">
+      <div class="menu-item">
+        <img src="Eae18i0.png" alt="Gyoza">
+        <div class="menu-info">
+          <h3>Kyckling Gyoza</h3>
+          <p>Stekta kycklingdumplings med dippsås</p>
+          <div class="price">Pris: 89kr</div>
+          <div class="info-wrapper">
+            <div class="info-button">i</div>
+            <div class="allergens">
+              <strong>Innehåller:</strong> soja, gluten<br>
+              <strong>Ursprung:</strong> Svensk kyckling
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="Eae18i0.png" alt="Miso Soppa">
+        <div class="menu-info">
+          <h3>Miso Soppa</h3>
+          <p>Traditionell misobuljong med tofu och sjögräs</p>
+          <div class="price">Pris: 29kr</div>
+          <div class="info-wrapper">
+            <div class="info-button">i</div>
+            <div class="allergens">
+              <strong>Innehåller:</strong> soja
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
