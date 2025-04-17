@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Fusion Bites Meny</title>
+  <title id="page-title"></title>
   <style>
-    /* [CSS remains unchanged from your latest working version] */
+    /* [CSS remains unchanged — same styles from working version] */
     body {
       font-family: 'Helvetica Neue', sans-serif;
       margin: 0;
@@ -154,132 +154,155 @@
   </style>
 </head>
 <body>
-
   <header>
-    <img src="logo.png" alt="Logotyp" class="logo">
-    <h1>Fusion Bites Meny</h1>
+    <img id="logo" class="logo" alt="Logotyp">
+    <h1 id="main-title"></h1>
   </header>
 
-  <section class="menu-section">
-    <h2>Risskålar</h2>
-    <div class="menu-row">
-      <div class="menu-item">
-        <img src="Eae18i0.png" alt="Risskål">
-        <div class="menu-info">
-          <h3>Kyckling Teriyaki Skål</h3>
-          <p>Grillad kyckling med teriyakisås på jasminris</p>
-          <div class="price">Pris: 75kr</div>
-          <div class="info-wrapper">
-            <div class="info-button">i</div>
-            <div class="allergens">
-              <strong>Innehåller:</strong> soja, gluten, sesam<br>
-              <strong>Ursprung:</strong> Svensk kyckling
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="menu-item">
-        <img src="Eae18i0.png" alt="Risskål">
-        <div class="menu-info">
-          <h3>Vegansk Skål</h3>
-          <p>Tofu, edamame och rostade grönsaker på fullkornsris</p>
-          <div class="price">Pris: 75kr</div>
-          <div class="info-wrapper">
-            <div class="info-button">i</div>
-            <div class="allergens">
-              <strong>Innehåller:</strong> soja
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <div id="menu-root"></div>
 
-  <section class="menu-section">
-    <h2>Sushi & Rullar</h2>
-    <div class="menu-row">
-      <div class="menu-item">
-        <img src="Eae18i0.png" alt="Sushi">
-        <div class="menu-info">
-          <h3>Spicy Tonfiskrulle</h3>
-          <p>Kryddig tonfisk med avokado och sesamfrön</p>
-          <div class="price">Pris: 59kr</div>
-          <div class="info-wrapper">
-            <div class="info-button">i</div>
-            <div class="allergens">
-              <strong>Innehåller:</strong> fisk, soja, sesam<br>
-              <strong>Ursprung:</strong> Tonfisk från Stilla havet
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="menu-item">
-        <img src="Eae18i0.png" alt="Sushi">
-        <div class="menu-info">
-          <h3>Lax & Avokado Rulle</h3>
-          <p>Färsk lax med krämig avokado och ris</p>
-          <div class="price">Pris: 59kr</div>
-          <div class="info-wrapper">
-            <div class="info-button">i</div>
-            <div class="allergens">
-              <strong>Innehåller:</strong> fisk<br>
-              <strong>Ursprung:</strong> Norsk lax
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="menu-item">
-        <img src="Eae18i0.png" alt="Sushi">
-        <div class="menu-info">
-          <h3>California Rulle</h3>
-          <p>Krabba, avokado och gurka rullat i ris</p>
-          <div class="price">Pris: 59kr</div>
-          <div class="info-wrapper">
-            <div class="info-button">i</div>
-            <div class="allergens">
-              <strong>Innehåller:</strong> skaldjur, gluten<br>
-              <strong>Ursprung:</strong> Krabba från Atlanten
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <script>
+    window.__INITIAL_CONFIG__ = {
+      title: "Fusion Bites Meny",
+      logo: "logo.png",
+      categories: [
+        {
+          name: "Risskålar",
+          items: [
+            {
+              name: "Kyckling Teriyaki Skål",
+              description: "Grillad kyckling med teriyakisås på jasminris",
+              image: "Eae18i0.png",
+              price: "79 kr",
+              allergens: "soja, gluten, sesam",
+              origin: "Svensk kyckling"
+            },
+            {
+              name: "Vegansk Skål",
+              description: "Tofu, edamame och rostade grönsaker på fullkornsris",
+              image: "Eae18i0.png",
+              price: "65 kr",
+              allergens: "soja"
+            }
+          ]
+        },
+        {
+          name: "Sushi & Rullar",
+          items: [
+            {
+              name: "Spicy Tonfiskrulle",
+              description: "Kryddig tonfisk med avokado och sesamfrön",
+              image: "Eae18i0.png",
+              price: "82 kr",
+              allergens: "fisk, soja, sesam",
+              origin: "Tonfisk från Stilla havet"
+            },
+            {
+              name: "Lax & Avokado Rulle",
+              description: "Färsk lax med krämig avokado och ris",
+              image: "Eae18i0.png",
+              price: "80 kr",
+              allergens: "fisk",
+              origin: "Norsk lax"
+            },
+            {
+              name: "California Rulle",
+              description: "Krabba, avokado och gurka rullat i ris",
+              image: "Eae18i0.png",
+              price: "75 kr",
+              allergens: "skaldjur, gluten",
+              origin: "Krabba från Atlanten"
+            }
+          ]
+        },
+        {
+          name: "Gyoza & Tillbehör",
+          items: [
+            {
+              name: "Kyckling Gyoza",
+              description: "Stekta kycklingdumplings med dippsås",
+              image: "Eae18i0.png",
+              price: "52 kr",
+              allergens: "soja, gluten",
+              origin: "Svensk kyckling"
+            },
+            {
+              name: "Miso Soppa",
+              description: "Traditionell misobuljong med tofu och sjögräs",
+              image: "Eae18i0.png",
+              price: "29 kr",
+              allergens: "soja"
+            }
+          ]
+        }
+      ]
+    };
 
-  <section class="menu-section">
-    <h2>Gyoza & Tillbehör</h2>
-    <div class="menu-row">
-      <div class="menu-item">
-        <img src="Eae18i0.png" alt="Gyoza">
-        <div class="menu-info">
-          <h3>Kyckling Gyoza</h3>
-          <p>Stekta kycklingdumplings med dippsås</p>
-          <div class="price">Pris: 89kr</div>
-          <div class="info-wrapper">
-            <div class="info-button">i</div>
-            <div class="allergens">
-              <strong>Innehåller:</strong> soja, gluten<br>
-              <strong>Ursprung:</strong> Svensk kyckling
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="menu-item">
-        <img src="Eae18i0.png" alt="Miso Soppa">
-        <div class="menu-info">
-          <h3>Miso Soppa</h3>
-          <p>Traditionell misobuljong med tofu och sjögräs</p>
-          <div class="price">Pris: 29kr</div>
-          <div class="info-wrapper">
-            <div class="info-button">i</div>
-            <div class="allergens">
-              <strong>Innehåller:</strong> soja
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    const config = window.__INITIAL_CONFIG__;
+    document.title = config.title;
+    document.getElementById('main-title').textContent = config.title;
+    document.getElementById('logo').src = config.logo;
 
+    const root = document.getElementById('menu-root');
+
+    config.categories.forEach(category => {
+      const section = document.createElement('section');
+      section.className = 'menu-section';
+
+      const heading = document.createElement('h2');
+      heading.textContent = category.name;
+      section.appendChild(heading);
+
+      const row = document.createElement('div');
+      row.className = 'menu-row';
+
+      category.items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'menu-item';
+
+        const img = document.createElement('img');
+        img.src = item.image;
+        img.alt = item.name;
+        card.appendChild(img);
+
+        const info = document.createElement('div');
+        info.className = 'menu-info';
+
+        const title = document.createElement('h3');
+        title.textContent = item.name;
+        info.appendChild(title);
+
+        const desc = document.createElement('p');
+        desc.textContent = item.description;
+        info.appendChild(desc);
+
+        const price = document.createElement('div');
+        price.className = 'price';
+        price.textContent = 'Pris: ' + item.price;
+        info.appendChild(price);
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'info-wrapper';
+
+        const button = document.createElement('div');
+        button.className = 'info-button';
+        button.textContent = 'i';
+        wrapper.appendChild(button);
+
+        const allergens = document.createElement('div');
+        allergens.className = 'allergens';
+        allergens.innerHTML = '<strong>Innehåller:</strong> ' + item.allergens +
+          (item.origin ? '<br><strong>Ursprung:</strong> ' + item.origin : '');
+
+        wrapper.appendChild(allergens);
+        info.appendChild(wrapper);
+        card.appendChild(info);
+        row.appendChild(card);
+      });
+
+      section.appendChild(row);
+      root.appendChild(section);
+    });
+  </script>
 </body>
 </html>
