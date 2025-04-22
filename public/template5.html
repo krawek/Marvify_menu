@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- CONFIG_INJECTION_POINT -->
+  <title id="page-title"></title>
+  <style id="dynamic-font-style"></style>
+  <style>
+    body {
+      margin: 0;
+      background: repeating-linear-gradient(45deg, #ff0, #ff0 20px, #f0f 20px, #f0f 40px);
+      font-family: var(--body-font, 'Comic Sans MS', cursive);
+      color: #222;
+      animation: spinbg 20s linear infinite;
+      overflow-x: hidden;
+    }
+
+    @keyframes spinbg {
+      0% { background-position: 0 0; }
+      100% { background-position: 1000px 1000px; }
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem;
+      background-color: #ff69b4;
+      color: #fff;
+      border-bottom: 10px dotted lime;
+      transform: rotate(-1deg);
+    }
+
+    header img.logo {
+      height: 80px;
+      border: 5px dashed blue;
+      border-radius: 50%;
+      background-color: white;
+      padding: 0.5rem;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      letter-spacing: 5px;
+      color: var(--title-font-color, #000);
+    }
+
+    header p.subtitle {
+      font-style: italic;
+      font-size: 1.2rem;
+      color: #000;
+      background-color: #0ff;
+      display: inline-block;
+      padding: 0.3rem 1rem;
+      border-radius: 10px;
+      margin-top: 1rem;
+    }
+
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      padding: 3rem 1rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .menu-item {
+      width: 220px;
+      padding: 1rem;
+      border: 5px double #000;
+      background: linear-gradient(135deg, #fffaa7, #a7faff);
+      border-radius: 20px;
+      transition: transform 0.3s ease, background-color 0.3s;
+      box-shadow: 0 0 20px #0003;
+      position: relative;
+      top: 0;
+      animation: floaty 6s infinite ease-in-out;
+    }
+
+    @keyframes floaty {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(calc(-10px + var(--float-offset, 0px))); }
+      100% { transform: translateY(0); }
+    }
+
+    .menu-item:hover {
+      animation: none;
+      transform: scale(1.2) rotate(var(--hover-rotate, 10deg));
+      background-color: #ffe4e1;
+    }
+
+    .menu-item h3 {
+      font-size: 1.2rem;
+      color: var(--title-color, #000);
+      text-decoration: underline wavy red;
+    }
+
+    .menu-item p.desc {
+      font-size: 0.95rem;
+      color: var(--desc-color, #333);
+      font-weight: bold;
+    }
+
+    .price {
+      font-size: 1.1rem;
+      color: darkred;
+      font-style: italic;
+    }
+
+    .menu-item img {
+      width: 100%;
+      max-height: 150px;
+      object-fit: cover;
+      border: 5px dotted purple;
+      border-radius: 15px;
+      margin-top: 0.5rem;
+      animation: wobble 2s infinite;
+    }
+
+    @keyframes wobble {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(2deg); }
+      50% { transform: rotate(-2deg); }
+      75% { transform: rotate(1deg); }
+    }
+
+    .info-wrapper {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+    }
+
+    .info-button {
+      width: 22px;
+      height: 22px;
+      background-color: hotpink;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 22px;
+      cursor: pointer;
+    }
+
+    .info-button:hover {
+      background-color: yellow;
+      color: black;
+    }
+
+    .allergens {
+      position: absolute;
+      top: 2.2rem;
+      right: 0;
+      background-color: #ffffe0;
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 10;
+      white-space: normal;
+    }
+
+    .info-wrapper:hover .allergens {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a id="logo-link" class="logo-link">
+      <img id="logo" class="logo" alt="Logo" />
+    </a>
+    <h1 id="main-title"></h1>
+    <p id="subtitle" class="subtitle"></p>
+  </header>
+  <div class="menu" id="menu-root"></div>
+  <script>
+    const config = window.__INITIAL_CONFIG__;
+    document.title = config.tabTitle || config.title;
+    document.getElementById('main-title').textContent = config.title;
+    document.getElementById('subtitle').textContent = config.subtitle || '';
+
+    if (config.logo) {
+      document.getElementById('logo').src = config.logo;
+    } else {
+      document.getElementById('logo-link').style.display = 'none';
+    }
+
+    if (config.logoClickURL) {
+      const logoOpen = config.logoClickURLOpenType || "tab";
+      const logoLink = document.getElementById('logo-link');
+      logoLink.style.cursor = 'pointer';
+      logoLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (logoOpen.startsWith("popup")) {
+          let width = 600, height = 600;
+          const match = logoOpen.match(/popup\s*(\d+)x(\d+)/i);
+          if (match) {
+            width = parseInt(match[1], 10);
+            height = parseInt(match[2], 10);
+          }
+          window.open(config.logoClickURL, "logoPopup", `width=${width},height=${height}`);
+        } else if (logoOpen === "same-window") {
+          window.location.href = config.logoClickURL;
+        } else {
+          window.open(config.logoClickURL, "_blank");
+        }
+      });
+    }
+
+    if (config.googleFont) {
+      const link = document.createElement('link');
+      link.href = `https://fonts.googleapis.com/css2?family=${config.googleFont.replace(/ /g, '+')}&display=swap`;
+      link.rel = 'stylesheet';
+      document.head.appendChild(link);
+
+      const style = document.getElementById('dynamic-font-style');
+      style.textContent = `
+        :root {
+          --title-font-color: ${config.titleFontColor || '#000'};
+          --body-font: '${config.googleFont}', cursive;
+          --header-font: '${config.googleFont}', cursive;
+          --card-bg: ${config.cardInfoBackgroundColor || '#fff'};
+          --title-color: ${config.cardTitleColor || '#000'};
+          --desc-color: ${config.cardDescriptionColor || '#555'};
+          --bg-color: ${config.backgroundColor || '#ffffff'};
+        }
+      `;
+    }
+
+    const root = document.getElementById('menu-root');
+    let floatOptions = ["10px", "-10px", "20px", "-20px"];
+    let rotateOptions = ["3deg", "-3deg", "5deg", "-5deg"];
+
+    config.categories.forEach(category => {
+      category.items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'menu-item';
+
+        const floatOffset = floatOptions[Math.floor(Math.random() * floatOptions.length)];
+        const rotate = rotateOptions[Math.floor(Math.random() * rotateOptions.length)];
+        card.style.setProperty('--float-offset', floatOffset);
+        card.style.setProperty('--hover-rotate', rotate);
+
+        const title = document.createElement('h3');
+        title.textContent = item.name;
+        card.appendChild(title);
+
+        const desc = document.createElement('p');
+        desc.className = 'desc';
+        desc.textContent = item.description;
+        card.appendChild(desc);
+
+        const price = document.createElement('div');
+        price.className = 'price';
+        price.textContent = item.price;
+        card.appendChild(price);
+
+        if (item.image) {
+          const img = document.createElement('img');
+          img.src = item.image;
+          img.alt = item.name;
+          card.appendChild(img);
+        }
+
+        if (item.allergens || item.origin) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'info-wrapper';
+
+          const button = document.createElement('div');
+          button.className = 'info-button';
+          button.textContent = 'i';
+          wrapper.appendChild(button);
+
+          const infoBox = document.createElement('div');
+          infoBox.className = 'allergens';
+
+          let html = '';
+          if (item.allergens) {
+            html += `<strong>Innehåller:</strong> ${item.allergens}`;
+          }
+          if (item.origin) {
+            html += `${item.allergens ? '<br>' : ''}<strong>Ursprung:</strong> ${item.origin}`;
+          }
+
+          infoBox.innerHTML = html;
+          wrapper.appendChild(infoBox);
+          card.appendChild(wrapper);
+        }
+
+        card.addEventListener('click', () => {
+          const openType = item.open || 'tab';
+          if (openType.startsWith('popup')) {
+            let width = 600, height = 600;
+            const match = openType.match(/popup\s*(\d+)x(\d+)/i);
+            if (match) {
+              width = parseInt(match[1], 10);
+              height = parseInt(match[2], 10);
+            }
+            window.open(item.url, 'popup', `width=${width},height=${height}`);
+          } else if (openType === 'same-window') {
+            window.location.href = item.url;
+          } else {
+            window.open(item.url, '_blank');
+          }
+        });
+
+        root.appendChild(card);
+      });
+    });
+  </script>
+</body>
+</html>

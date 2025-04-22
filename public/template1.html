@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- CONFIG_INJECTION_POINT -->
   <title id="page-title"></title>
   <style>
     body {
@@ -11,34 +12,52 @@
     }
 
     header {
-      background-color: #ffffff;
-      padding: 1rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-      position: relative;
-    }
+  background-color: #ffffff;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-wrap: nowrap;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
 
-    header a.logo-link {
-      position: absolute;
-      left: 2rem;
-      height: 50px;
-      display: block;
-    }
+header a.logo-link {
+  position: absolute;
+  left: 2rem;
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
 
-    header img.logo {
-      height: 50px;
-      max-height: 100%;
-      object-fit: contain;
-    }
+header img.logo {
+  height: 50px;
+  max-height: 100%;
+  object-fit: contain;
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-      text-align: center;
-      flex-grow: 1;
-    }
+header h1 {
+  margin: 0 auto;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  header a.logo-link {
+    position: static;
+    order: -1;
+    margin-bottom: 0.5rem;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+}
 
     .menu-section {
       padding: 2rem;
@@ -175,252 +194,11 @@
   <div id="menu-root"></div>
 
   <script>
-    window.__INITIAL_CONFIG__ = {
-      title: "Fusion Bites Meny",
-      tabTitle: "Fusion Bites Meny",
-      logo: "logo.png",
-      backgroundColor: "#fffdf8",
-      logoClickURL: "https://www.sushisho.se/",
-      logoClickURLOpenType: "same-window",
-      googleFont: "Poppins",
-      maxItemsPerRow: 2,
-      cardInfoBackgroundColor: "#ffffff",
-      cardTitleColor: "#000000",
-      cardDescriptionColor: "#777777",
-      categories: [
-  {
-    name: "Risskålar",
-    items: [
-      {
-        name: "Kyckling Teriyaki Skål",
-        description: "Grillad kyckling med teriyakisås på jasminris",
-        image: "Eae18i0.png",
-        price: "79 kr",
-        allergens: "soja, gluten, sesam",
-        origin: "Svensk kyckling",
-        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-        open: "tab"
-      },
-      {
-        name: "Vegansk Skål",
-        description: "Tofu, edamame och rostade grönsaker på fullkornsris",
-        image: "Eae18i0.png",
-        price: "65 kr",
-        allergens: "soja",
-        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-        open: "popup"
-      },
-      {
-        name: "Bulgogi Biff Skål",
-        description: "Marinerad biff i koreansk stil med ris och sallad",
-        image: "Eae18i0.png",
-        price: "89 kr",
-        allergens: "soja, sesam",
-        origin: "Svensk biff",
-        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-        open: "tab"
-      },
-      {
-        name: "Tempura Räk Skål",
-        description: "Friterade räkor med chili-majo och sticky rice",
-        image: "Eae18i0.png",
-        price: "85 kr",
-        allergens: "skaldjur, ägg, gluten",
-        origin: "Räkor från Asien",
-        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-        open: "popup"
-      }
-    ]
-  },
-  {
-    name: "Sushi & Rullar",
-    items: [
-      {
-        name: "Spicy Tonfiskrulle",
-        description: "Kryddig tonfisk med avokado och sesamfrön",
-        image: "Eae18i0.png",
-        price: "82 kr",
-        allergens: "fisk, soja, sesam",
-        origin: "Tonfisk från Stilla havet",
-        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-        open: "tab"
-      },
-      {
-        name: "Lax & Avokado Rulle",
-        description: "Färsk lax med krämig avokado och ris",
-        image: "Eae18i0.png",
-        price: "80 kr",
-        allergens: "fisk",
-        origin: "Norsk lax",
-        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-        open: "popup"
-      },
-      {
-        name: "California Rulle",
-        description: "Krabba, avokado och gurka rullat i ris",
-        image: "Eae18i0.png",
-        price: "75 kr",
-        allergens: "skaldjur, gluten",
-        origin: "Krabba från Atlanten",
-        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-        open: "tab"
-      },
-      {
-        name: "Dragon Roll",
-        description: "Friterad räka, avokado och spicy majo",
-        image: "Eae18i0.png",
-        price: "88 kr",
-        allergens: "skaldjur, gluten, ägg",
-        origin: "Räkor från Thailand",
-        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-        open: "popup"
-      },
-      {
-        name: "Sashimi Mix",
-        description: "Lax, tonfisk och hälleflundra – ren rå smak",
-        image: "Eae18i0.png",
-        price: "99 kr",
-        allergens: "fisk",
-        origin: "Nordatlantisk fisk",
-        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-        open: "tab"
-      },
-      {
-        name: "Avokado Maki",
-        description: "Enkel och fräsch rulle med krämig avokado",
-        image: "Eae18i0.png",
-        price: "59 kr",
-        allergens: "",
-        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-        open: "popup"
-      }
-    ]
-  },
-  {
-    name: "Gyoza & Tillbehör",
-    items: [
-      {
-        name: "Kyckling Gyoza",
-        description: "Stekta kycklingdumplings med dippsås",
-        image: "Eae18i0.png",
-        price: "52 kr",
-        allergens: "soja, gluten",
-        origin: "Svensk kyckling",
-        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-        open: "popup"
-      },
-      {
-        name: "Miso Soppa",
-        description: "Traditionell misobuljong med tofu och sjögräs",
-        image: "Eae18i0.png",
-        price: "29 kr",
-        allergens: "soja",
-        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-        open: "tab"
-      },
-      {
-        name: "Edamame",
-        description: "Saltade sojabönor – perfekt som snacks",
-        image: "Eae18i0.png",
-        price: "35 kr",
-        allergens: "soja",
-        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-        open: "popup"
-      },
-      {
-        name: "Kimchi",
-        description: "Koreansk kryddig fermenterad kål",
-        image: "Eae18i0.png",
-        price: "32 kr",
-        allergens: "",
-        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-        open: "tab"
-      },
-      {
-        name: "Wakame Sallad",
-        description: "Sjögrässallad med sesamolja",
-        image: "Eae18i0.png",
-        price: "34 kr",
-        allergens: "sesam",
-        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-        open: "popup"
-      }
-    ]
-  },
-  {
-    name: "Drycker",
-    items: [
-      {
-        name: "Japansk Läsk",
-        description: "Ramune – klassisk japansk kolsyrad läsk",
-        image: "Eae18i0.png",
-        price: "29 kr",
-        allergens: "",
-        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-        open: "tab"
-      },
-      {
-        name: "Grönt Te",
-        description: "Iskallt matcha-te utan socker",
-        image: "Eae18i0.png",
-        price: "25 kr",
-        allergens: "",
-        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-        open: "popup"
-      },
-      {
-        name: "Bubbelte",
-        description: "Söt dryck med tapiokapärlor",
-        image: "Eae18i0.png",
-        price: "45 kr",
-        allergens: "",
-        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-        open: "tab"
-      }
-    ]
-  },
-  {
-    name: "Dessert",
-    items: [
-      {
-        name: "Mochi Glass",
-        description: "Japanska riskakor fyllda med glass",
-        image: "Eae18i0.png",
-        price: "38 kr",
-        allergens: "mjölk",
-        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-        open: "popup"
-      },
-      {
-        name: "Matcha Cheesecake",
-        description: "Klassisk cheesecake med japansk touch",
-        image: "Eae18i0.png",
-        price: "49 kr",
-        allergens: "mjölk, ägg, gluten",
-        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-        open: "tab"
-      },
-      {
-        name: "Yuzu Sorbet",
-        description: "Syrlig sorbet med japansk citrus",
-        image: "Eae18i0.png",
-        price: "42 kr",
-        allergens: "",
-        url: "https://viewer.marvify.io/?m=N2JpdGFyLzEwYml0YXI=",
-        open: "popup"
-      }
-    ]
-  }
-]
-};
-</script>
-  <script>
     const config = window.__INITIAL_CONFIG__;
     document.title = config.tabTitle || config.title;
     document.getElementById('main-title').textContent = config.title;
     document.getElementById('logo').src = config.logo;
 
-    // Parse and handle logo click
     const logoLink = document.getElementById('logo-link');
     if (config.logoClickURL) {
       const logoOpen = config.logoClickURLOpenType || "tab";
@@ -445,11 +223,10 @@
       logoLink.replaceWith(document.getElementById('logo'));
     }
 
-    // Styling
     if (config.backgroundColor) {
       document.body.style.backgroundColor = config.backgroundColor;
     }
-    // GOOGLE FONTS
+
     if (config.googleFont) {
       const link = document.createElement('link');
       link.href = `https://fonts.googleapis.com/css2?family=${config.googleFont.replace(/ /g, '+')}&display=swap`;

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- CONFIG_INJECTION_POINT -->
+  <title id="page-title"></title>
+  <style id="dynamic-font-style"></style>
+  <style>
+    body {
+      margin: 0;
+      background-color: #fdfdfd;
+      font-family: var(--body-font, 'Open Sans'), sans-serif;
+      color: #1a1a1a;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+      gap: 1rem;
+      position: relative;
+    }
+
+    header a.logo-link {
+      height: 50px;
+      display: flex;
+      align-items: center;
+    }
+
+    header img.logo {
+      height: 50px;
+      object-fit: contain;
+      max-height: 100%;
+    }
+
+    header h1 {
+      font-family: var(--header-font, 'Playfair Display'), serif;
+      font-size: 3rem;
+      font-weight: 600;
+      margin: 0 auto;
+      letter-spacing: 2px;
+      flex: 1 1 100%;
+    }
+
+    header p.subtitle {
+      font-size: 1rem;
+      font-style: italic;
+      color: #666;
+      margin-top: 0.5rem;
+      flex: 1 1 100%;
+    }
+
+    .menu {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .category {
+      flex: 1 1 300px;
+    }
+
+    .category h2 {
+      font-family: var(--header-font, 'Playfair Display'), serif;
+      font-size: 1.5rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 0.5rem;
+    }
+
+    .menu-item {
+      text-align: center;
+      padding: 1rem 0;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .menu-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+      margin: 0 auto 0.5rem;
+      opacity: 0.85;
+      transition: transform 0.2s ease;
+    }
+
+    .menu-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .menu-item h3 {
+      font-family: var(--header-font, 'Playfair Display'), serif;
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0.2rem 0;
+    }
+
+    .menu-item p.desc {
+      font-size: 0.85rem;
+      color: #555;
+      margin: 0.2rem 0;
+    }
+
+    .menu-item .price {
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-top: 0.3rem;
+      color: #333;
+    }
+
+    .info-wrapper {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+    }
+
+    .info-button {
+      width: 20px;
+      height: 20px;
+      background-color: #eee;
+      color: #555;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      position: relative;
+      z-index: 2;
+    }
+
+    .info-button:hover {
+      background-color: #ccc;
+    }
+
+    .allergens {
+      position: absolute;
+      top: 1.8rem;
+      right: 0;
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      color: #333;
+      font-weight: 500;
+      width: max-content;
+      max-width: 220px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 1;
+      line-height: 1.4;
+      white-space: normal;
+    }
+
+    .info-wrapper:hover .allergens {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a id="logo-link" class="logo-link">
+      <img id="logo" class="logo" alt="Logotyp">
+    </a>
+    <h1 id="main-title"></h1>
+    <p class="subtitle" id="subtitle"></p>
+  </header>
+
+  <div class="menu" id="menu-root"></div>
+
+  <script>
+    const config = window.__INITIAL_CONFIG__;
+    document.title = config.tabTitle || config.title;
+    document.getElementById('main-title').textContent = config.title;
+    document.getElementById('subtitle').textContent = config.subtitle || '';
+
+    if (config.logo) {
+      document.getElementById('logo').src = config.logo;
+    } else {
+      document.getElementById('logo-link').style.display = 'none';
+    }
+
+    if (config.logoClickURL) {
+      const logoOpen = config.logoClickURLOpenType || "tab";
+      const logoLink = document.getElementById('logo-link');
+      logoLink.style.cursor = 'pointer';
+      logoLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (logoOpen.startsWith("popup")) {
+          let width = 600, height = 600;
+          const match = logoOpen.match(/popup\\s*(\\d+)x(\\d+)/i);
+          if (match) {
+            width = parseInt(match[1], 10);
+            height = parseInt(match[2], 10);
+          }
+          window.open(config.logoClickURL, "logoPopup", `width=${width},height=${height}`);
+        } else if (logoOpen === "same-window") {
+          window.location.href = config.logoClickURL;
+        } else {
+          window.open(config.logoClickURL, "_blank");
+        }
+      });
+    }
+
+    if (config.googleFont) {
+      const link = document.createElement('link');
+      link.href = `https://fonts.googleapis.com/css2?family=${config.googleFont.replace(/ /g, '+')}&display=swap`;
+      link.rel = 'stylesheet';
+      document.head.appendChild(link);
+
+      const style = document.getElementById('dynamic-font-style');
+      style.textContent = `
+        :root {
+          --body-font: '${config.googleFont}', sans-serif;
+          --header-font: '${config.googleFont}', serif;
+        }
+      `;
+    }
+
+    const root = document.getElementById('menu-root');
+
+    config.categories.forEach(category => {
+      const col = document.createElement('div');
+      col.className = 'category';
+
+      const catTitle = document.createElement('h2');
+      catTitle.textContent = category.name;
+      col.appendChild(catTitle);
+
+      category.items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'menu-item';
+
+        card.addEventListener('click', () => {
+          const openType = item.open || 'tab';
+          if (openType.startsWith('popup')) {
+            let width = 600;
+            let height = 600;
+            const match = openType.match(/popup\\s*(\\d+)x(\\d+)/i);
+            if (match) {
+              width = parseInt(match[1], 10);
+              height = parseInt(match[2], 10);
+            }
+            window.open(item.url, 'popup', `width=${width},height=${height}`);
+          } else if (openType === 'same-window') {
+            window.location.href = item.url;
+          } else {
+            window.open(item.url, '_blank');
+          }
+        });
+
+        const img = document.createElement('img');
+        img.src = item.image;
+        img.alt = item.name;
+        card.appendChild(img);
+
+        const name = document.createElement('h3');
+        name.textContent = item.name;
+        card.appendChild(name);
+
+        const desc = document.createElement('p');
+        desc.className = 'desc';
+        desc.textContent = item.description;
+        card.appendChild(desc);
+
+        const price = document.createElement('div');
+        price.className = 'price';
+        price.textContent = item.price;
+        card.appendChild(price);
+
+        if (item.allergens || item.origin) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'info-wrapper';
+
+          const button = document.createElement('div');
+          button.className = 'info-button';
+          button.textContent = 'i';
+          wrapper.appendChild(button);
+
+          const infoBox = document.createElement('div');
+          infoBox.className = 'allergens';
+
+          let html = '';
+          if (item.allergens) {
+            html += `<strong>Innehåller:</strong> ${item.allergens}`;
+          }
+          if (item.origin) {
+            html += `${item.allergens ? '<br>' : ''}<strong>Ursprung:</strong> ${item.origin}`;
+          }
+
+          infoBox.innerHTML = html;
+          wrapper.appendChild(infoBox);
+          card.appendChild(wrapper);
+        }
+
+        col.appendChild(card);
+      });
+
+      root.appendChild(col);
+    });
+  </script>
+</body>
+</html>

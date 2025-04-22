@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- CONFIG_INJECTION_POINT -->
+  <title id="page-title"></title>
+  <style id="dynamic-font-style"></style>
+  <style>
+    :root {
+      --border-color: #444;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg-color, #111);
+      font-family: var(--body-font, 'Courier New', monospace);
+      color: #eee;
+    }
+
+    header {
+      background: #000;
+      padding: 3rem 1rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    header a.logo-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+
+    header img.logo {
+      height: 60px;
+      object-fit: contain;
+    }
+
+    header h1 {
+      font-family: var(--header-font, monospace);
+      font-size: 2.8rem;
+      margin: 0.5rem 0 0.2rem;
+      color: var(--title-font-color, #fff);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+
+    header p.subtitle {
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--title-font-color, #bbb);
+      margin: 0;
+    }
+
+    .menu {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    .category {
+      margin-bottom: 4rem;
+    }
+
+    .category h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+      color: var(--title-font-color, #ffcc00);
+      border-left: 4px solid var(--title-font-color, #ffcc00);
+      padding-left: 1rem;
+    }
+
+    .menu-item {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border-radius: 12px;
+      position: relative;
+      transition: background-color 0.3s ease;
+    }
+
+    .menu-item:hover {
+      background-color: #222;
+    }
+
+    .menu-item h3 {
+      margin: 0;
+      font-size: 1.3rem;
+      color: var(--title-color, #fff);
+    }
+
+    .menu-item p.desc {
+      margin: 0.5rem 0 0;
+      font-size: 0.95rem;
+      color: var(--desc-color, #aaa);
+    }
+
+    .menu-item .price {
+      font-weight: bold;
+      color: #ffcc00;
+      margin-top: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .menu-item img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      margin-top: 1rem;
+      border-radius: 8px;
+    }
+
+    .info-wrapper {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+
+    .info-button {
+      width: 22px;
+      height: 22px;
+      background-color: #333;
+      color: #ffcc00;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 22px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .info-button:hover {
+      background-color: #555;
+    }
+
+    .allergens {
+      position: absolute;
+      top: 2.4rem;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.95);
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      color: #ffcc00;
+      font-weight: 500;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 1;
+      line-height: 1.4;
+      white-space: normal;
+    }
+
+    .info-wrapper:hover .allergens {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a id="logo-link" class="logo-link">
+      <img id="logo" class="logo" alt="Logo">
+    </a>
+    <h1 id="main-title"></h1>
+    <p id="subtitle" class="subtitle"></p>
+  </header>
+  <div class="menu" id="menu-root"></div>
+  <script>
+    const config = window.__INITIAL_CONFIG__;
+    document.title = config.tabTitle || config.title;
+    document.getElementById('main-title').textContent = config.title;
+    document.getElementById('subtitle').textContent = config.subtitle || '';
+
+    if (config.logo) {
+      document.getElementById('logo').src = config.logo;
+    } else {
+      document.getElementById('logo-link').style.display = 'none';
+    }
+
+    if (config.logoClickURL) {
+      const logoOpen = config.logoClickURLOpenType || "tab";
+      const logoLink = document.getElementById('logo-link');
+      logoLink.style.cursor = 'pointer';
+      logoLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (logoOpen.startsWith("popup")) {
+          let width = 600, height = 600;
+          const match = logoOpen.match(/popup\s*(\d+)x(\d+)/i);
+          if (match) {
+            width = parseInt(match[1], 10);
+            height = parseInt(match[2], 10);
+          }
+          window.open(config.logoClickURL, "logoPopup", `width=${width},height=${height}`);
+        } else if (logoOpen === "same-window") {
+          window.location.href = config.logoClickURL;
+        } else {
+          window.open(config.logoClickURL, "_blank");
+        }
+      });
+    }
+
+    if (config.googleFont) {
+      const link = document.createElement('link');
+      link.href = `https://fonts.googleapis.com/css2?family=${config.googleFont.replace(/ /g, '+')}&display=swap`;
+      link.rel = 'stylesheet';
+      document.head.appendChild(link);
+
+      const style = document.getElementById('dynamic-font-style');
+      style.textContent = `
+        :root {
+          --title-font-color: ${config.titleFontColor || '#ffcc00'};
+          --body-font: '${config.googleFont}', monospace;
+          --header-font: '${config.googleFont}', monospace;
+          --card-bg: ${config.cardInfoBackgroundColor || '#1a1a1a'};
+          --title-color: ${config.cardTitleColor || '#ffffff'};
+          --desc-color: ${config.cardDescriptionColor || '#bbbbbb'};
+          --bg-color: ${config.backgroundColor || '#111111'};
+        }
+      `;
+    }
+
+    const root = document.getElementById('menu-root');
+
+    config.categories.forEach(category => {
+      const section = document.createElement('div');
+      section.className = 'category';
+
+      const heading = document.createElement('h2');
+      heading.textContent = category.name;
+      section.appendChild(heading);
+
+      category.items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'menu-item';
+
+        card.addEventListener('click', () => {
+          const openType = item.open || 'tab';
+          if (openType.startsWith('popup')) {
+            let width = 600;
+            let height = 600;
+            const match = openType.match(/popup\s*(\d+)x(\d+)/i);
+            if (match) {
+              width = parseInt(match[1], 10);
+              height = parseInt(match[2], 10);
+            }
+            window.open(item.url, 'popup', `width=${width},height=${height}`);
+          } else if (openType === 'same-window') {
+            window.location.href = item.url;
+          } else {
+            window.open(item.url, '_blank');
+          }
+        });
+
+        const title = document.createElement('h3');
+        title.textContent = item.name;
+        card.appendChild(title);
+
+        const desc = document.createElement('p');
+        desc.className = 'desc';
+        desc.textContent = item.description;
+        card.appendChild(desc);
+
+        const price = document.createElement('div');
+        price.className = 'price';
+        price.textContent = item.price;
+        card.appendChild(price);
+
+        if (item.image) {
+          const img = document.createElement('img');
+          img.src = item.image;
+          img.alt = item.name;
+          card.appendChild(img);
+        }
+
+        if (item.allergens || item.origin) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'info-wrapper';
+
+          const button = document.createElement('div');
+          button.className = 'info-button';
+          button.textContent = 'i';
+          wrapper.appendChild(button);
+
+          const infoBox = document.createElement('div');
+          infoBox.className = 'allergens';
+
+          let html = '';
+          if (item.allergens) {
+            html += `<strong>Innehåller:</strong> ${item.allergens}`;
+          }
+          if (item.origin) {
+            html += `${item.allergens ? '<br>' : ''}<strong>Ursprung:</strong> ${item.origin}`;
+          }
+
+          infoBox.innerHTML = html;
+          wrapper.appendChild(infoBox);
+          card.appendChild(wrapper);
+        }
+
+        section.appendChild(card);
+      });
+
+      root.appendChild(section);
+    });
+  </script>
+</body>
+</html>
